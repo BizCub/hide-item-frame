@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "hide_item_frame",
   "version": "${version}",
-  "name": "hide_item_frame",
+  "name": "Hide Item Frame",
   "description": "Hide the frame if it contains an item",
   "authors": [
     "Bizarre Cube"
