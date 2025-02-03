@@ -32,4 +32,3 @@ public abstract class HideItemFrameMixin<T extends ItemFrameEntity> extends Enti
         return !itemStack.isEmpty();
     }
 }
-//test
