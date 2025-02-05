@@ -21,7 +21,7 @@ public abstract class HideItemFrameMixin<T extends ItemFrameEntity> extends Enti
     }
 
     @Inject(method = "render*", at = @At(value = "HEAD"))
-    public void method1(ItemFrameEntityRenderState itemFrameEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
+    public void hideItemFrame(ItemFrameEntityRenderState itemFrameEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
         ItemStack itemStack = itemFrameEntityRenderState.contents;
         itemFrameEntityRenderState.invisible = !itemStack.isEmpty();
     }
