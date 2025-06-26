@@ -14,16 +14,12 @@
   "license": "MIT",
   "icon": "icon.png",
   "environment": "client",
-  "entrypoints": {
-    "client": [
-      "com.bizcub.hide_item_frame.HideItemFrame"
-    ]
-  },
+  "entrypoints": {},
   "mixins": [
     "hide_item_frame.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": ">=1.18"
+    "minecraft": ">=${minecraft_version}"
   }
 }
