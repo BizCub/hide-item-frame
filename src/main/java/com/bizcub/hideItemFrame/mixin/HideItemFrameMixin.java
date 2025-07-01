@@ -1,4 +1,4 @@
-package com.bizcub.hide_item_frame.mixin;
+package com.bizcub.hideItemFrame.mixin;
 
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
