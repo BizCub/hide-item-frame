@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.bizcub.hide_item_frame.mixin",
+  "package": "com.bizcub.hideItemFrame.mixin",
   "mixins": [
   ],
   "client": [
