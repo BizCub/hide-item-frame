@@ -15,7 +15,6 @@
   "icon": "icon.png",
   "entrypoints": {},
   "mixins": [
-    "${id}-common.mixins.json",
-    "${id}-fabric.mixins.json"
+    "${id}-common.mixins.json"
   ]
 }

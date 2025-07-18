@@ -16,6 +16,3 @@ issueTrackerURL="https://github.com/BizCub/${github}/issues"
 
 [[mixins]]
 config = "${id}-common.mixins.json"
-
-[[mixins]]
-config = "${id}-neoforge.mixins.json"
