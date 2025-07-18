@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "com.bizcub.hideItemFrame.platforms.fabric.mixin",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,25 +1,21 @@
 {
   "schemaVersion": 1,
-  "id": "hide_item_frame",
+  "id": "${id}",
   "version": "${version}",
-  "name": "Hide Item Frame",
-  "description": "Hide the frame if it contains an item",
+  "name": "${name}",
+  "description": "${description}",
   "authors": [
     "Bizarre Cube"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/project/hide-item-frame",
-    "issues": "https://github.com/BizCub/hide_item_frame/issues"
+    "homepage": "https://modrinth.com/project/${modrinth}",
+    "issues": "https://github.com/BizCub/${github}/issues"
   },
   "license": "MIT",
   "icon": "icon.png",
-  "environment": "client",
   "entrypoints": {},
   "mixins": [
-    "hide_item_frame.mixins.json"
-  ],
-  "depends": {
-    "fabricloader": ">=${loader_version}",
-    "minecraft": ">=${minecraft_version}"
-  }
+    "${id}-common.mixins.json",
+    "${id}-fabric.mixins.json"
+  ]
 }
