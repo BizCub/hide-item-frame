@@ -49,8 +49,6 @@ dependencies {
 }
 
 loom {
-    accessWidenerPath = rootProject.file("src/main/resources/${mod.id}.accesswidener")
-
     decompilers {
         get("vineflower").apply { // Adds names to lambdas - useful for mixins
             options.put("mark-corresponding-synthetics", "1")
@@ -124,7 +122,6 @@ tasks.shadowJar {
 }
 
 tasks.remapJar {
-    injectAccessWidener = true
     input = tasks.shadowJar.get().archiveFile
     archiveClassifier = null
     dependsOn(tasks.shadowJar)
