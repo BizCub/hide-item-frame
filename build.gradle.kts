@@ -10,7 +10,7 @@ plugins {
 val minecraft = stonecutter.current.version
 val loader = loom.platform.get().name.lowercase()
 
-version = "${mod.version}+$minecraft"
+version = "${mod.version}+${mod.mc_start}"
 group = mod.group
 base {
     archivesName.set("${mod.id}-$loader")
