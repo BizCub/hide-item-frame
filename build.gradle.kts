@@ -70,16 +70,16 @@ if (localPropertiesFile.exists()) {
 }
 
 publishMods {
-    file = rootProject.file("build/libs/${mod.version}/" + loader + "/${mod.id}-" + loader + "-${mod.version}+${mod.mc_start}.jar")
-    //file = project.tasks.remapJar.get().archiveFile
-    displayName = "${mod.name} ${loader.replaceFirstChar { it.uppercase() }} ${property("mod.mc_start")} v${mod.version}"
+    file = rootProject.file("build/libs/${mod.version}/$loader/${mod.id}-$loader-${mod.version}+${mod.mc_start}.jar")
+    displayName = "${mod.name} ${loader.replaceFirstChar { it.uppercase() }} ${mod.mc_start} v${mod.version}"
     changelog = rootProject.file("CHANGELOG.md").readText()
+    version = mod.version
     type = STABLE
     modLoaders.add(loader)
     if (loader == "fabric") modLoaders.add("quilt")
 
     modrinth {
-        projectId = property("mod.modrinth").toString()
+        projectId = mod.modrinth
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         minecraftVersionRange {
             start = mod.mc_start
@@ -89,7 +89,7 @@ publishMods {
     }
 
     curseforge {
-        projectId = property("mod.curseforge").toString()
+        projectId = mod.curseforge
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         minecraftVersionRange {
             start = mod.mc_start
