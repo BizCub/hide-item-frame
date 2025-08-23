@@ -9,11 +9,12 @@ plugins {
 
 val minecraft = stonecutter.current.version
 val loader = loom.platform.get().name.lowercase()
+val mixinId = mod.id.replace("_", "-")
 
 version = "${mod.version}+${mod.mc_start}"
 group = mod.group
 base {
-    archivesName.set("${mod.id.replace("_", "-")}-$loader")
+    archivesName.set("$mixinId-$loader")
 }
 
 architectury.common(stonecutter.tree.branches.mapNotNull {
@@ -56,8 +57,8 @@ loom {
     }
     if (loader == "forge") {
         forge.mixinConfigs(
-            "${mod.id}-common.mixins.json",
-            "${mod.id}-forge.mixins.json",
+            "$mixinId-common.mixins.json",
+            "${mixinId}-forge.mixins.json",
         )
     }
 }
@@ -161,6 +162,7 @@ tasks.processResources {
     properties(
         listOf("fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml", "pack.mcmeta"),
         //"minecraft" to mod.prop("mc_dep_forgelike"),
+        "mixin" to mixinId,
         "id" to mod.id,
         "name" to mod.name,
         "description" to mod.description,

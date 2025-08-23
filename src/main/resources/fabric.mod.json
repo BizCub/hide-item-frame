@@ -15,6 +15,6 @@
   "icon": "icon.png",
   "entrypoints": {},
   "mixins": [
-    "${id}-common.mixins.json"
+    "${mixin}-common.mixins.json"
   ]
 }
