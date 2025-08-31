@@ -28,4 +28,4 @@ stonecutter {
     create(rootProject)
 }
 
-rootProject.name = "Hide Item Frame"
+rootProject.name = settings.extra["mod.name"] as String
