@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//? if >=1.21.2 {
+//? >=1.21.2 {
 /*import net.minecraft.client.render.entity.state.ItemFrameEntityRenderState;
 
 @Mixin(ItemFrameEntityRenderer.class)
@@ -17,15 +17,13 @@ public abstract class HideItemFrameMixin {
     @Inject(method = "render*", at = @At(value = "HEAD"))
     public void hideItemFrame(ItemFrameEntityRenderState itemFrameEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
         if (!itemFrameEntityRenderState.invisible) {
-            //? if >=1.21.4 {
-            /^itemFrameEntityRenderState.invisible = !itemFrameEntityRenderState.itemRenderState.isEmpty();
-            ^///?} else {
-            itemFrameEntityRenderState.invisible = !itemFrameEntityRenderState.contents.isEmpty();//?}
+            /^? >=1.21.4^/ /^itemFrameEntityRenderState.invisible = !itemFrameEntityRenderState.itemRenderState.isEmpty();^/
+            /^? <1.21.4^/ itemFrameEntityRenderState.invisible = !itemFrameEntityRenderState.contents.isEmpty();
         }
     }
 }
 
-*///?} elif <=1.21.1 {
+*///?} <=1.21.1 {
 import net.minecraft.entity.decoration.ItemFrameEntity;
 
 @Mixin(ItemFrameEntityRenderer.class)

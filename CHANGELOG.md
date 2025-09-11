@@ -1,1 +1,1 @@
-* The list of versions for Fabric and Forge has been expanded
+* The list of versions for Forge has been expanded

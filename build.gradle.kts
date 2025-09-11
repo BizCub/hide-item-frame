@@ -24,7 +24,7 @@ architectury.common(stonecutter.tree.branches.mapNotNull {
 })
 
 stonecutter {
-    swaps["mod_id"] = "\"${prop("mod.id")}\""
+    swaps["mod_id"] = "\"${prop("mod.id")}\";"
     constants.match(loader, "fabric", "forge", "neoforge")
     java {
         val java = if (stonecutter.eval(minecraft, ">=1.20.5")) JavaVersion.VERSION_21
