@@ -1,8 +1,6 @@
 {
   "required": true,
   "package": "com.bizcub.hideItemFrame.mixin",
-  "mixins": [
-  ],
   "client": [
     "HideItemFrameMixin"
   ],

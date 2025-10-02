@@ -1,19 +1,21 @@
 plugins {
-    id("dev.architectury.loom") version "1.11-SNAPSHOT"
-    id("architectury-plugin") version "3.4-SNAPSHOT"
-    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
+    id("dev.architectury.loom") version "1.+"
+    id("architectury-plugin") version "3.+"
+    id("me.modmuss50.mod-publish-plugin") version "0.8.+"
 }
 
 val minecraft = stonecutter.current.version
 val loader = loom.platform.get().name.lowercase()
 val mixinId = mod.id.replace("_", "-")
 
-var mcStart = findProperty("mod.mc_start").toString()
+var mcStart = findProperty("publish.mc_start").toString()
 if (mcStart == "null") mcStart = minecraft
-var mcEnd = findProperty("mod.mc_end").toString()
+var mcEnd = findProperty("publish.mc_end").toString()
 if (mcEnd == "null") mcEnd = minecraft
 var neoPatch = findProperty("deps.neoforge_patch").toString()
 if (neoPatch == "null") neoPatch = "1.21+build.4"
+var forgePatch = findProperty("deps.forge_patch").toString()
+if (forgePatch == "null") forgePatch = "1.21.9+build.6"
 
 base.archivesName.set("$mixinId-$loader")
 version = "${mod.version}+$mcStart"
@@ -53,12 +55,15 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraft")
 
     if (loader == "fabric") {
-        modImplementation("net.fabricmc:fabric-loader:0.17.2")
+        modImplementation("net.fabricmc:fabric-loader:latest.release")
         mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
     }
     if (loader == "forge") {
         "forge"("net.minecraftforge:forge:$minecraft-${mod.dep("forge_loader")}")
-        mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
+        mappings(loom.layered {
+            mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
+            mappings("dev.architectury:yarn-mappings-patch-forge:$forgePatch")
+        })
     }
     if (loader == "neoforge") {
         val neoVers = minecraft.substring(2)
