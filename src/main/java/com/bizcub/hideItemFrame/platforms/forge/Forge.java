@@ -3,7 +3,7 @@
 
 import net.minecraftforge.fml.common.Mod;
 
-@Mod(/^$ mod_id^/ "hide_item_frame";
+@Mod(Forge.modId)
 public class Forge {
-
+    public static final String modId = /^$ mod_id^/ "hide_item_frame";
 }*///?}
