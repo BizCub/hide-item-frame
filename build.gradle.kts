@@ -5,20 +5,26 @@ plugins {
 }
 
 val minecraft = stonecutter.current.version
+val snapshot = prop("mc.snapshot").toString()
 val loader = loom.platform.get().name.lowercase()
 val mixinId = mod.id.replace("_", "-")
 
-var mcStart = findProperty("publish.mc_start").toString()
-if (mcStart == "null") mcStart = minecraft
-var mcEnd = findProperty("publish.mc_end").toString()
-if (mcEnd == "null") mcEnd = minecraft
+val isFabric = loader == "fabric"
+val isForge = loader == "forge"
+val isNeoForge = loader == "neoforge"
+
+var pubStart = findProperty("publish.start").toString()
+if (pubStart == "null") pubStart = minecraft
+var pubEnd = findProperty("publish.end").toString()
+if (pubEnd == "null") pubEnd = minecraft
+
 var neoPatch = findProperty("deps.neoforge_patch").toString()
 if (neoPatch == "null") neoPatch = "1.21+build.4"
 var forgePatch = findProperty("deps.forge_patch").toString()
 if (forgePatch == "null") forgePatch = "1.21.9+build.6"
 
 base.archivesName.set("$mixinId-$loader")
-version = "${mod.version}+$mcStart"
+version = "${mod.version}+$pubStart"
 
 architectury.common(stonecutter.tree.branches.mapNotNull {
     if (stonecutter.current.project !in it) null
@@ -40,11 +46,16 @@ stonecutter {
 
 loom {
     decompilers {
-        get("vineflower").apply { // Adds names to lambdas - useful for mixins
+        get("vineflower").apply {
             options.put("mark-corresponding-synthetics", "1")
         }
     }
-    if (loader == "forge") forge.mixinConfigs("$mixinId.mixins.json")
+
+    if (isForge) forge.mixinConfigs("${mixinId}.mixins.json")
+
+    runConfigs.all {
+        runDir = "../../run"
+    }
 }
 
 repositories {
@@ -52,20 +63,25 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:$minecraft")
+    minecraft("com.mojang:minecraft:${if (snapshot == "null") minecraft else snapshot}")
+    if (stonecutter.eval(minecraft, ">=1.21.11")) mappings(loom.officialMojangMappings())
 
-    if (loader == "fabric") {
+    if (isFabric) {
         modImplementation("net.fabricmc:fabric-loader:latest.release")
-        mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-    }
-    if (loader == "forge") {
-        "forge"("net.minecraftforge:forge:$minecraft-${mod.dep("forge_loader")}")
-        mappings(loom.layered {
+        if (stonecutter.eval(minecraft, "<=1.21.10")) {
             mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-            mappings("dev.architectury:yarn-mappings-patch-forge:$forgePatch")
-        })
+        }
     }
-    if (loader == "neoforge") {
+    if (isForge) {
+        "forge"("net.minecraftforge:forge:$minecraft-${mod.dep("forge_loader")}")
+        if (stonecutter.eval(minecraft, "<=1.21.10")) {
+            mappings(loom.layered {
+                mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
+                mappings("dev.architectury:yarn-mappings-patch-forge:$forgePatch")
+            })
+        }
+    }
+    if (isNeoForge) {
         val neoVers = minecraft.substring(2)
         val neoLoader = mod.dep("neoforge_loader")
         "neoForge"("net.neoforged:neoforge:${if (neoVers.contains(".")) "$neoVers.$neoLoader" else "$neoVers.0.$neoLoader"}")
@@ -112,19 +128,19 @@ if (stonecutter.current.isActive) {
 
 publishMods {
     file = tasks.remapJar.get().archiveFile
-    displayName = "${mod.name} ${loader.upperCaseFirst()} $mcStart v${mod.version}"
+    displayName = "${mod.name} ${loader.upperCaseFirst()} $pubStart v${mod.version}"
     changelog = rootProject.file("CHANGELOG.md").readText()
     version = mod.version
     type = STABLE
     modLoaders.add(loader)
-    if (loader == "fabric") modLoaders.add("quilt")
+    if (isFabric) modLoaders.add("quilt")
 
     modrinth {
         projectId = mod.modrinth
         accessToken = file("C:\\Tokens\\modrinth.txt").readText()
         minecraftVersionRange {
-            start = mcStart
-            end = mcEnd
+            start = pubStart
+            end = pubEnd
             includeSnapshots = true
         }
     }
@@ -133,8 +149,8 @@ publishMods {
         projectId = mod.curseforge
         accessToken = file("C:\\Tokens\\curseforge.txt").readText()
         minecraftVersionRange {
-            start = mcStart
-            end = mcEnd
+            start = pubStart
+            end = pubEnd
         }
     }
 
@@ -142,6 +158,6 @@ publishMods {
         accessToken = file("C:\\Tokens\\github.txt").readText()
         repository = "BizCub/${mod.github}"
         commitish = "master"
-        tagName = "v${mod.version}-$loader+$mcStart"
+        tagName = "v${mod.version}-$loader+$pubStart"
     }
 }
