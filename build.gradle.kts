@@ -64,31 +64,16 @@ repositories {
 
 dependencies {
     minecraft("com.mojang:minecraft:${if (snapshot == "null") minecraft else snapshot}")
-    if (stonecutter.eval(minecraft, ">=1.21.11")) mappings(loom.officialMojangMappings())
+    mappings(loom.officialMojangMappings())
 
-    if (isFabric) {
+    if (isFabric)
         modImplementation("net.fabricmc:fabric-loader:latest.release")
-        if (stonecutter.eval(minecraft, "<=1.21.10")) {
-            mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-        }
-    }
-    if (isForge) {
+    if (isForge)
         "forge"("net.minecraftforge:forge:$minecraft-${mod.dep("forge_loader")}")
-        if (stonecutter.eval(minecraft, "<=1.21.10")) {
-            mappings(loom.layered {
-                mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-                mappings("dev.architectury:yarn-mappings-patch-forge:$forgePatch")
-            })
-        }
-    }
     if (isNeoForge) {
         val neoVers = minecraft.substring(2)
         val neoLoader = mod.dep("neoforge_loader")
         "neoForge"("net.neoforged:neoforge:${if (neoVers.contains(".")) "$neoVers.$neoLoader" else "$neoVers.0.$neoLoader"}")
-        mappings(loom.layered {
-            mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-            mappings("dev.architectury:yarn-mappings-patch-neoforge:$neoPatch")
-        })
     }
 }
 
