@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
 import net.minecraft.client.renderer.state.CameraRenderState;
 
 @Mixin(ItemFrameRenderer.class)
-public abstract class HideItemFrameMixin {
+public class HideItemFrameMixin {
 
     @Inject(method = "submit*", at = @At(value = "HEAD"))
     public void hideItemFrame(ItemFrameRenderState itemFrameRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState, CallbackInfo ci) {
@@ -27,7 +27,7 @@ public abstract class HideItemFrameMixin {
 import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
 
 @Mixin(ItemFrameRenderer.class)
-public abstract class HideItemFrameMixin {
+public class HideItemFrameMixin {
 
     @Inject(method = "render*", at = @At(value = "HEAD"))
     public void hideItemFrame(ItemFrameRenderState itemFrameRenderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci){
