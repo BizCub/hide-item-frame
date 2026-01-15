@@ -1,5 +1,5 @@
 //? forge {
-/*package com.bizcub.hideItemFrame.platforms.forge;
+/*package com.bizcub.hideItemFrame.platforms;
 
 import net.minecraftforge.fml.common.Mod;
 

@@ -1,10 +1,10 @@
 {
-  "required": true,
-  "package": "com.bizcub.hideItemFrame.mixin",
-  "client": [
-    "HideItemFrameMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "package": "com.bizcub.hideItemFrame.mixin",
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "client": [
+        "HideItemFrameMixin"
+    ]
 }
