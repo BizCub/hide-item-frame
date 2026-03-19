@@ -20,8 +20,9 @@ stonecutter {
     create(rootProject) {
         val fb = "fabric"; val fr = "forge"; val nf = "neoforge"
         fun match(version: String, vararg loaders: String) = loaders
-            .forEach { version("$version-$it", version) }
-        match("1.21.9", fb, fr, nf)
+            .forEach { version("$version-$it", version).buildscript("build.${if (eval(version, ">=26.1")) "unobf." else ""}gradle.kts") }
+        match("26.1", fb)
+        match("1.21.10", fb, fr, nf)
         match("1.21.4", fb, fr, nf)
         match("1.21.3", fb, fr, nf)
         match("1.21.1", fr, nf)

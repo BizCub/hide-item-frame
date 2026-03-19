@@ -10,7 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //? >=1.21.9 {
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+//~ if >=26.1 'state' -> 'state.level'
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 
 @Mixin(ItemFrameRenderer.class)
 public class HideItemFrameMixin {
