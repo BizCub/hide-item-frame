@@ -47,4 +47,4 @@ pub_start="1.21.9"
 pub_end="latest"
 
 ["26.1"]
-version="26.1-pre-2"
+version="26.1-rc-1"

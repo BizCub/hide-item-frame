@@ -18,8 +18,13 @@ public class HideItemFrameMixin {
 
     @Inject(method = "submit*", at = @At(value = "HEAD"))
     public void hideItemFrame(ItemFrameRenderState itemFrameRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState, CallbackInfo ci) {
-        if (!itemFrameRenderState.isInvisible)
-            itemFrameRenderState.isInvisible = !itemFrameRenderState.item.isEmpty();
+        //? >=26.1 {
+        if (!itemFrameRenderState.item.isEmpty())
+            itemFrameRenderState.frameModel.clear();
+
+        //?} else {
+        /*if (!itemFrameRenderState.isInvisible)
+            itemFrameRenderState.isInvisible = !itemFrameRenderState.item.isEmpty();*///?}
     }
 }
 
