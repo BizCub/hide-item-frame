@@ -9,6 +9,13 @@ plugins {
 
 stonecutter active "26.1-fabric"
 
+stonecutter parameters {
+    val (version, loader) = current.project.split('-', limit = 2)
+    properties.tags(version, loader)
+    constants.match(node.metadata.project.substringAfterLast('-'), "fabric", "neoforge", "forge")
+    swaps["mod_id"] = "\"${prop("mod.id")}\";"
+}
+
 idea.project.settings.runConfigurations {
     register<Gradle>("0 Run Client") { taskNames = listOf("runActiveClient") }
     register<Gradle>("0 Run Server") { taskNames = listOf("runActiveServer") }

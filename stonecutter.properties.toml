@@ -40,11 +40,12 @@ forge="54.1.0"
 neoforge="147"
 pub_end="1.21.8"
 
-["1.21.10"]
-forge="60.1.0"
-neoforge="64"
+["1.21.11"]
+forge="61.1.5"
+neoforge="40-beta"
 pub_start="1.21.9"
-pub_end="latest"
 
 ["26.1"]
-version="26.1-rc-1"
+forge="62.0.2"
+neoforge="1-beta"
+pub_end="latest"
