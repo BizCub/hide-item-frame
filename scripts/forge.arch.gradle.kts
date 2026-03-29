@@ -9,14 +9,14 @@ multiloader {
     loom.silentMojangMappingsLicense()
 
     repositories {
-        for (rep in reps) maven(rep.name)
+        for (rep in reps) maven(rep.repository)
     }
 
     dependencies {
-        minecraft("com.mojang:minecraft:${mod.mcSpecified}")
+        minecraft("com.mojang:minecraft:${mod.mc}")
         mappings(loom.officialMojangMappings())
         "forge"("net.minecraftforge:forge:${getProp("forge")}")
-        for (dep in deps) dep.impl(dep.name)
+        for (dep in deps) dep.configuration(dep.dependency)
     }
 
     loom {

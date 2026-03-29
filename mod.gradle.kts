@@ -12,7 +12,7 @@ project.extensions.configure<MultiLoader>("multiloader") {
     }
 
     if (isFabric) {
-        addDependency("net.fabricmc:fabric-loader:latest.release", "implementation")
+        addDependency("implementation", "net.fabricmc:fabric-loader:latest.release")
     }
 
     if (isNeoForge) {
