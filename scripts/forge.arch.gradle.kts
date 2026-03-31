@@ -8,6 +8,8 @@ apply(from = ml.scriptPath)
 multiloader {
     loom.silentMojangMappingsLicense()
 
+    java.toolchain.languageVersion.set(JavaLanguageVersion.of(mod.javaNumber))
+
     repositories {
         for (rep in reps) maven(rep.repository)
     }

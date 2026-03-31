@@ -38,8 +38,8 @@ public class HideItemFrameMixin {
     @Inject(method = "render*", at = @At(value = "HEAD"))
     public void hideItemFrame(ItemFrameRenderState itemFrameRenderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci){
         if (!itemFrameRenderState.isInvisible) {
-            /^? >=1.21.4^/ itemFrameRenderState.isInvisible = !itemFrameRenderState.item.isEmpty();
-            /^? <=1.21.3^/ /^itemFrameRenderState.isInvisible = !itemFrameRenderState.itemStack.isEmpty();^/
+            /^? >=1.21.4^/ //itemFrameRenderState.isInvisible = !itemFrameRenderState.item.isEmpty();
+            /^? <=1.21.3^/ itemFrameRenderState.isInvisible = !itemFrameRenderState.itemStack.isEmpty();
         }
     }
 }
