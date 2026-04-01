@@ -23,7 +23,7 @@ stonecutter.create(rootProject) {
         var suffix = if (it == "forge" && sc.eval(version, "<=1.17.1")) ".arch" else ""
         version("$version-$it", version).buildscript = "scripts/$it$suffix.gradle.kts"
     }
-    match("26.1", fb, fr, nf)
+    match("26.1.1", fb, fr, nf)
     match("1.21.11", fb, fr, nf)
     match("1.21.4", fb, fr, nf)
     match("1.21.3", fb, fr, nf)

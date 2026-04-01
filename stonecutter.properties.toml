@@ -45,7 +45,8 @@ forge="61.1.5"
 neoforge="40-beta"
 pub_start="1.21.9"
 
-["26.1"]
-forge="62.0.2"
-neoforge="1-beta"
+["26.1.1"]
+forge="63.0.0"
+neoforge="0-beta"
+pub_start="26.1"
 pub_end="latest"
