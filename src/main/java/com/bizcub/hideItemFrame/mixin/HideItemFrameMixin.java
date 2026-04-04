@@ -1,58 +1,44 @@
 package com.bizcub.hideItemFrame.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.bizcub.hideItemFrame.Main;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
+/*? >=1.21.2*/ import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
+/*? <=1.21.1*/ //import net.minecraft.world.entity.decoration.ItemFrame;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-//? >=1.21.9 {
-import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
-//~ if >=26.1 'state' -> 'state.level'
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ItemFrameRenderer.class)
 public class HideItemFrameMixin {
 
-    @Inject(method = "submit*", at = @At(value = "HEAD"))
-    public void hideItemFrame(ItemFrameRenderState itemFrameRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState, CallbackInfo ci) {
-        //? >=26.1 {
-        if (!itemFrameRenderState.item.isEmpty())
-            itemFrameRenderState.frameModel.clear();
+    //~ if >=1.21.9 'render*' -> 'submit*'
+    @ModifyVariable(method = "submit*", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    //~ if >=1.21.2 'ItemFrame' -> 'ItemFrameRenderState'
+    private ItemFrameRenderState hideItemFrameRenderState(ItemFrameRenderState state) {
+        if (Main.visibility) {
+            //? >=26.1 {
+            if (!state.item.isEmpty())
+                state.frameModel.clear();
 
-        //?} else {
-        /*if (!itemFrameRenderState.isInvisible)
-            itemFrameRenderState.isInvisible = !itemFrameRenderState.item.isEmpty();*///?}
+            //?} >=1.21.2 {
+            /*if (!state.isInvisible)
+                //~ if >=1.21.4 'itemStack' -> 'item'
+                state.isInvisible = !state.item.isEmpty();
+
+            *///?} else {
+            /*state.setInvisible(!state.getItem().isEmpty());*///?}
+        } //? <=1.21.1 {
+        /*else state.setInvisible(false);*///?}
+        return state;
     }
+
+    //? >=26.1 {
+    @Redirect(method = "submit*", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z", opcode = Opcodes.GETFIELD))
+    private boolean isInvisible(ItemFrameRenderState state) {
+        return Main.visibility
+                ? !state.item.isEmpty()
+                : state.isInvisible;
+    }//?}
 }
-
-//?} >=1.21.2 {
-/*import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
-
-@Mixin(ItemFrameRenderer.class)
-public class HideItemFrameMixin {
-
-    @Inject(method = "render*", at = @At(value = "HEAD"))
-    public void hideItemFrame(ItemFrameRenderState itemFrameRenderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci){
-        if (!itemFrameRenderState.isInvisible) {
-            /^? >=1.21.4^/ //itemFrameRenderState.isInvisible = !itemFrameRenderState.item.isEmpty();
-            /^? <=1.21.3^/ itemFrameRenderState.isInvisible = !itemFrameRenderState.itemStack.isEmpty();
-        }
-    }
-}
-
-*///?} else {
-/*import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.world.entity.decoration.ItemFrame;
-
-@Mixin(ItemFrameRenderer.class)
-public class HideItemFrameMixin {
-
-    @Inject(method = "render*", at = @At(value = "HEAD"))
-    public void hideItemFrame(ItemFrame itemFrame, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci){
-        itemFrame.setInvisible(!itemFrame.getItem().isEmpty());
-    }
-}*///?}

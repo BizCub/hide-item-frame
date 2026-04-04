@@ -5,19 +5,31 @@
 
 ["1.16.5"]
 forge="36.2.34"
-pub_start="1.16"
-pub_end="1.21.1"
+fabric_api="0.42.0+1.16"
+pub_start="1.16.1"
+pub_end="1.18.2"
 
 ["1.16.5-forge"]
-pub_start="1.16.1"
 pub_end="1.16.5"
 
 ["1.17.1"]
 forge="37.1.1"
+
+["1.18"]
+forge="38.0.17"
+pub_end="1.18.2"
+
+["1.19"]
+forge="41.1.0"
+fabric_api="0.58.0+1.19"
+pub_end="1.21.1"
+
+["1.19-forge"]
 pub_end="1.20.4"
 
 ["1.21.1"]
 forge="52.1.0"
+fabric_api="0.116.10+1.21.1"
 neoforge="167"
 pub_start="1.21"
 
@@ -29,6 +41,7 @@ pub_start="1.21"
 
 ["1.21.3"]
 forge="53.1.0"
+fabric_api="0.114.1+1.21.3"
 neoforge="1-beta"
 pub_start="1.21.2"
 
@@ -37,16 +50,26 @@ pub_start="1.21.3"
 
 ["1.21.4"]
 forge="54.1.0"
+fabric_api="0.119.4+1.21.4"
 neoforge="147"
 pub_end="1.21.8"
 
+["1.21.4-forge"]
+pub_end="1.21.5"
+
+["1.21.8"]
+forge="58.1.0"
+pub_start="1.21.6"
+
 ["1.21.11"]
 forge="61.1.5"
+fabric_api="0.141.3+1.21.11"
 neoforge="40-beta"
 pub_start="1.21.9"
 
 ["26.1.1"]
 forge="63.0.0"
+fabric_api="0.145.3+26.1.1"
 neoforge="0-beta"
 pub_start="26.1"
 pub_end="latest"

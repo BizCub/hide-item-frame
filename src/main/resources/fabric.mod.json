@@ -13,7 +13,11 @@
         "homepage": "https://modrinth.com/project/${modrinth}",
         "issues": "https://github.com/BizCub/${github}/issues"
     },
-    "entrypoints": {},
+    "entrypoints": {
+        "client": [
+            "com.bizcub.hideItemFrame.platform.Fabric"
+        ]
+    },
     "mixins": [
         "${mixin}.mixins.json"
     ]
