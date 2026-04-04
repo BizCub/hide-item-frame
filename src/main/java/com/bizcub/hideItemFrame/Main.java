@@ -20,7 +20,7 @@ public class Main {
 
     public static void init() {
         new File(FILE_PATH).mkdir();
-        visibility = readConfig().hidden;
+        if (readConfig() != null) visibility = readConfig().hidden;
     }
 
     public static final KeyMapping TOGGLE_VISIBILITY = new KeyMapping(

@@ -1,1 +1,1 @@
-* Added saving of frame state to configuration
+* Fixed a crash when trying to read a configuration file
