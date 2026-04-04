@@ -11,6 +11,8 @@ public class Fabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        Main.init();
+
         KeyMappingHelper.registerKeyMapping(Main.TOGGLE_VISIBILITY);
 
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {

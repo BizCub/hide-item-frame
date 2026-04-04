@@ -1,1 +1,1 @@
-* Added the ability to toggle the visibility of frames by pressing a button
+* Added saving of frame state to configuration

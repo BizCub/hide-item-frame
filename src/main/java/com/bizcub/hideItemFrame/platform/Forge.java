@@ -37,6 +37,8 @@ public class Forge {
     public static class Init {
 
         public Init() {
+            Main.init();
+
             /^? <=1.18.2^/ //ClientRegistry.registerKeyMapping(Main.TOGGLE_VISIBILITY);
         }
     }

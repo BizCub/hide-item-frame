@@ -8,4 +8,4 @@ A mod that hides frames if they contain an item. This solution allows you to imp
 
 ## Usage
 
-To see all frames again, even those that contain an item, you can press the H button (default).
+To see all frames again, even those that contain an item, you can press the H button (default). The frame state is saved in the configuration file ```hide_item_frame.json```
