@@ -17,7 +17,7 @@ multiloader {
     dependencies {
         minecraft("com.mojang:minecraft:${mod.mc}")
         mappings(loom.officialMojangMappings())
-        "forge"("net.minecraftforge:forge:${getProp("forge")}")
+        "forge"("net.minecraftforge:forge:${getDep("forge")}")
         for (dep in deps) dep.configuration(dep.dependency)
     }
 

@@ -27,8 +27,8 @@ project.extensions.configure<MultiLoader>("multiloader") {
     }
 
     if (isFabric) {
-        addDependency("implementation", "net.fabricmc:fabric-loader:latest.release")
-        addDependency("implementation", "net.fabricmc.fabric-api:fabric-api:${getProp("fabric_api")}")
+        addDependency("implementation", "net.fabricmc:fabric-loader:${getDep("fabric")}")
+        addDependency("implementation", "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}")
     }
 
     if (isNeoForge) {
