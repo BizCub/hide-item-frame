@@ -1,38 +1,45 @@
-# Fabric versions see: https://fabricmc.net/develop
-# Forge versions see: https://files.minecraftforge.net
-# NeoForge versions see: https://neoforged.net
-# Extra dependencies see: https://linkie.shedaniel.dev/dependencies
+### Mod properties
+mod.name="Hide Item Frame"
+mod.id="hide_item_frame"
+mod.version="1.4.2"
+mod.description="Hide the frame if it contains an item"
 
+### Publishing
+mod.modrinth="kQBKK3h1"
+mod.curseforge="1217060"
+mod.github="hide-item-frame"
+
+### Subprojects
 ["26.1.2"]
-pub_end="latest"
+pub-end="latest"
 
 ["1.21.11"]
-pub_start="1.21.9"
+pub-start="1.21.9"
 
 ["1.21.4"]
-pub_end="1.21.8"
+pub-end="1.21.8"
 
 ["1.21.4-forge"]
-pub_end="1.21.5"
+pub-end="1.21.5"
 
 ["1.21.3-forge"]
-pub_start="1.21.3"
+pub-start="1.21.3"
 
 ["1.21.1-forge"]
-pub_start="1.20.6"
+pub-start="1.20.6"
 
 ["1.19"]
-pub_end="1.21.1"
+pub-end="1.21.1"
 
 ["1.19-forge"]
-pub_end="1.20.4"
+pub-end="1.20.4"
 
 ["1.18"]
-pub_end="1.18.2"
+pub-end="1.18.2"
 
 ["1.16.5"]
-pub_start="1.16.1"
-pub_end="1.18.2"
+pub-start="1.16.1"
+pub-end="1.18.2"
 
 ["1.16.5-forge"]
-pub_end="1.16.5"
+pub-end="1.16.5"

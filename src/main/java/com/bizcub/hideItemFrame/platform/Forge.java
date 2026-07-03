@@ -8,7 +8,7 @@ import net.minecraftforge.client.event.InputEvent;
 /^? >=1.19^/ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-//$ client_regestry
+//$ client_registry
 //ClientRegistry;
 
 @Mod.EventBusSubscriber(modid = Main.MOD_ID, value = Dist.CLIENT)
