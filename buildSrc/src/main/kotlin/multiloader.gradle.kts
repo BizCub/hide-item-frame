@@ -5,6 +5,9 @@ plugins {
 }
 
 multiloader {
+    setMREnvironment(mrEnvs.clientOnly)
+    setCFEnvironment(cfEnvs.client)
+
     sc.replacements {
         string(scp >= "26.1") {
             replace("KeyBindingHelper", "KeyMappingHelper")
@@ -15,6 +18,7 @@ multiloader {
                 "net.minecraftforge.eventbus.api.listener.SubscribeEvent")
         }
     }
+
     sc.swaps["client_registry"] = when {
         scp >= "1.19" -> "//ClientRegistry;"
         scp >= "1.18" -> "import net.minecraftforge.client.ClientRegistry;"
@@ -29,7 +33,7 @@ multiloader {
         addDependency(
             dependency = "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}",
             isPublishDepEnabled = true,
-            publishRequirement = "requires"
+            isPublishDepRequired = true
         )
     }
 }
