@@ -5,9 +5,6 @@ plugins {
 }
 
 multiloader {
-    setMREnvironment(mrEnvs.clientOnly)
-    setCFEnvironment(cfEnvs.client)
-
     sc.replacements {
         string(scp >= "26.1") {
             replace("KeyBindingHelper", "KeyMappingHelper")
@@ -25,6 +22,9 @@ multiloader {
         scp >= "1.17" -> "import net.minecraftforge.fmlclient.registry.ClientRegistry;"
         else -> "import net.minecraftforge.fml.client.registry.ClientRegistry;"
     }
+
+    setMREnvironment(mrEnvs.clientOnly)
+    setCFEnvironment(cfEnvs.client)
 
     if (isFabric) {
         addDependency(
