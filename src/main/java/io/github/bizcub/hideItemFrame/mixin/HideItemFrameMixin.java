@@ -1,9 +1,9 @@
-package com.bizcub.hideItemFrame.mixin;
+package io.github.bizcub.hideItemFrame.mixin;
 
-import com.bizcub.hideItemFrame.Main;
+import io.github.bizcub.hideItemFrame.Main;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
-/*? >=1.21.2*/ import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
-/*? <=1.21.1*/ //import net.minecraft.world.entity.decoration.ItemFrame;
+/*? >=1.21.2 {*/ import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
+/*?} else*/ //import net.minecraft.world.entity.decoration.ItemFrame;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

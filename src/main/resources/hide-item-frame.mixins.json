@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "com.bizcub.hideItemFrame.mixin",
+    "package": "io.github.bizcub.hideItemFrame.mixin",
     "injectors": {
         "defaultRequire": 1
     },

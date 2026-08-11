@@ -1,7 +1,7 @@
 //? fabric {
-package com.bizcub.hideItemFrame.platform;
+package io.github.bizcub.hideItemFrame.platform;
 
-import com.bizcub.hideItemFrame.Main;
+import io.github.bizcub.hideItemFrame.Main;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 //~ if >=26.1 'keybinding' -> 'keymapping'

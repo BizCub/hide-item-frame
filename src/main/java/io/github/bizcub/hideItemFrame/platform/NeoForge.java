@@ -1,7 +1,7 @@
 //? neoforge {
-/*package com.bizcub.hideItemFrame.platform;
+/*package io.github.bizcub.hideItemFrame.platform;
 
-import com.bizcub.hideItemFrame.Main;
+import io.github.bizcub.hideItemFrame.Main;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

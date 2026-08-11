@@ -1,7 +1,5 @@
 plugins {
-    id("me.modmuss50.mod-publish-plugin")
-    id("dev.kikugie.fletching-table")
-    id("com.bizcub.multiloader")
+    id("io.github.bizcub.multiloader")
 }
 
 multiloader {
@@ -16,15 +14,15 @@ multiloader {
         }
     }
 
-    sc.swaps["client_registry"] = when {
-        scp >= "1.19" -> "//ClientRegistry;"
-        scp >= "1.18" -> "import net.minecraftforge.client.ClientRegistry;"
-        scp >= "1.17" -> "import net.minecraftforge.fmlclient.registry.ClientRegistry;"
-        else -> "import net.minecraftforge.fml.client.registry.ClientRegistry;"
-    }
-
     setMREnvironment(mrEnvs.clientOnly)
     setCFEnvironment(cfEnvs.client)
+
+    versionRange("26.1.2", to = "latest")
+    versionRange("1.21.11", from = "1.21.9")
+    versionRange("1.21.4", to = "1.21.8")
+    versionRange("1.21.4", to = "1.21.5", loader = "forge")
+    versionRange("1.21.3", from = "1.21.3", loader = "forge")
+    versionRange("1.21.1", from = "1.20.6", loader = "forge")
 
     if (isFabric) {
         addDependency(
