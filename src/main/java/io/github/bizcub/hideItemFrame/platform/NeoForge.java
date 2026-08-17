@@ -2,16 +2,25 @@
 /*package io.github.bizcub.hideItemFrame.platform;
 
 import io.github.bizcub.hideItemFrame.Main;
-import com.mojang.blaze3d.platform.InputConstants;
-import net.neoforged.api.distmarker.Dist;
+import io.github.bizcub.hideItemFrame.config.ConfigHelper;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@EventBusSubscriber(modid = Main.MOD_ID, value = Dist.CLIENT)
+@Mod(Main.MOD_ID)
+@EventBusSubscriber(modid = Main.MOD_ID)
 public class NeoForge {
+
+    public NeoForge() {
+        Main.init();
+
+        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () ->
+                (container, parent) -> ConfigHelper.getScreen(parent));
+    }
 
     @SubscribeEvent
     public static void registerBindings(RegisterKeyMappingsEvent event) {
@@ -19,23 +28,7 @@ public class NeoForge {
     }
 
     @SubscribeEvent
-    public static void onKeyInput(InputEvent.Key event) {
-        if (event.getAction() == InputConstants.PRESS) {
-            var inputConstants = InputConstants.getKey(
-                    /^? >=1.21.9^/ event.getKeyEvent()
-                    /^? <=1.21.8^/ //event.getKey(), event.getScanCode()
-            );
-            if (Main.TOGGLE_VISIBILITY.isActiveAndMatches(inputConstants)) {
-                Main.toggleVisibility();
-            }
-        }
-    }
-
-    @Mod(Main.MOD_ID)
-    public static class Init {
-
-        public Init() {
-            Main.init();
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
+        Main.onClientTick();
     }
 }*///?}

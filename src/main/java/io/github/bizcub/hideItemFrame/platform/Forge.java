@@ -2,39 +2,33 @@
 /*package io.github.bizcub.hideItemFrame.platform;
 
 import io.github.bizcub.hideItemFrame.Main;
-import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
+import io.github.bizcub.hideItemFrame.config.ConfigHelper;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = Main.MOD_ID, value = Dist.CLIENT)
+@Mod(Main.MOD_ID)
+@EventBusSubscriber(modid = Main.MOD_ID)
 public class Forge {
+
+    public Forge() {
+        Main.init();
+
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () ->
+                new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> ConfigHelper.getScreen(screen)));
+    }
 
     @SubscribeEvent
     public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(Main.TOGGLE_VISIBILITY);
     }
 
-    @SubscribeEvent
-    public static void onKeyInput(InputEvent.Key event) {
-        if (Main.TOGGLE_VISIBILITY.isDown()) {
-            InputConstants.Key inputConstants = InputConstants.getKey(
-                    /^? >=1.21.9^/ event.getInfo()
-                    /^? <=1.21.8^/ //event.getKey(), event.getScanCode()
-            );
-            if (Main.TOGGLE_VISIBILITY.isActiveAndMatches(inputConstants)) {
-                Main.toggleVisibility();
-            }
-        }
-    }
-
-    @Mod(Main.MOD_ID)
-    public static class Init {
-
-        public Init() {
-            Main.init();
-        }
+    @SubscribeEvent //~ if <=1.20.2 'ClientTickEvent.Post' -> 'ClientTickEvent'
+    public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
+        Main.onClientTick();
     }
 }*///?}

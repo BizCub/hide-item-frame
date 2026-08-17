@@ -1,6 +1,6 @@
 package io.github.bizcub.hideItemFrame.mixin;
 
-import io.github.bizcub.hideItemFrame.Main;
+import io.github.bizcub.hideItemFrame.config.Config;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 /*? >=1.21.2 {*/ import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
 /*?} else*/ //import net.minecraft.world.entity.decoration.ItemFrame;
@@ -15,7 +15,7 @@ public class HideItemFrameMixin {
     //~ if >=1.21.9 'render*' -> 'submit*'
     @ModifyVariable(method = "submit*", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private ItemFrameRenderState hideItemFrame(ItemFrameRenderState state) {
-        if (Main.visibility && !state.item.isEmpty()) {
+        if (Config.get().isInvisible() && !state.item.isEmpty()) {
             state.frameModel.clear();
         }
         return state;
@@ -25,7 +25,7 @@ public class HideItemFrameMixin {
     //~ if >=1.21.9 'render*' -> 'submit*'
     @Redirect(method = "submit*", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z", opcode = Opcodes.GETFIELD))
     private boolean isInvisible(ItemFrameRenderState state) {
-        return Main.visibility /*? >=26.1*/ && Main.raiseItem
+        return Config.get().isInvisible() /*? >=26.1*/ && Config.get().isItemOffset()
                 //~ if >=1.21.4 'itemStack' -> 'item'
                 ? !state.item.isEmpty()
                 : state.isInvisible;
@@ -34,7 +34,7 @@ public class HideItemFrameMixin {
     //?} else {
     /*@Redirect(method = "render*", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/decoration/ItemFrame;isInvisible()Z"))
     private boolean isInvisible(ItemFrame itemFrame) {
-        return Main.visibility
+        return Config.get().isInvisible()
                 ? itemFrame.isInvisible()
                 : itemFrame.isInvisible() || !itemFrame.getItem().isEmpty();
     }*///?}
@@ -43,6 +43,6 @@ public class HideItemFrameMixin {
     /*//~ if >=1.21.9 'render*' -> 'submit*'
     @ModifyArg(method = "submit*", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V", ordinal = 1), index = 2)
     private float raiseItemDepth(float z) {
-        return !Main.raiseItem ? 0.4375F : z;
+        return !Config.get().isItemOffset() ? 0.4375F : z;
     }*///?}
 }

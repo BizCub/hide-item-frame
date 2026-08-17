@@ -8,6 +8,9 @@ multiloader {
             replace("KeyBindingHelper", "KeyMappingHelper")
             replace("registerKeyBinding", "registerKeyMapping")
         }
+        string(scp >= "1.21.11" && !isForge, "auto_config") {
+            replace("AutoConfig", "AutoConfigClient")
+        }
         string(scp >= "1.21.6") {
             replace("net.minecraftforge.eventbus.api.SubscribeEvent",
                 "net.minecraftforge.eventbus.api.listener.SubscribeEvent")
@@ -24,7 +27,20 @@ multiloader {
     versionRange("1.21.3", from = "1.21.3", loader = "forge")
     versionRange("1.21.1", from = "1.20.6", loader = "forge")
     versionRange("1.20.1", to = "1.21.1")
-    versionRange("1.20.1", to = "1.20.4", loader = "forge")
+    versionRange("1.20.2", to = "1.20.4")
+    versionRange("1.20.1", to = "1.20.1", loader = "forge")
+
+    addDependency(
+        dependency = "io.github.bizcub:simple-config-lib:1.0-${mod.loader}+${mod.mc}"
+    )
+    val isClothConfigAvailable = !(isForge && scp > "1.21.3")
+    addDependency(
+        dependency = "me.shedaniel.cloth:cloth-config-${mod.loader}:${getDep("cloth-config").split("+").first()}",
+        configuration = if (isClothConfigAvailable) "implementation" else "compileOnly",
+        repository = "maven.shedaniel.me",
+        isPublishDepEnabled = isClothConfigAvailable,
+        publishProjectId = "cloth-config"
+    )
 
     if (isFabric) {
         addDependency(
@@ -34,6 +50,12 @@ multiloader {
             dependency = "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}",
             isPublishDepEnabled = true,
             isPublishDepRequired = true
+        )
+        addDependency(
+            dependency = "com.terraformersmc:modmenu:${getDep("modmenu")}",
+            repository = "maven.terraformersmc.com/releases",
+            excludedModules = listOf("eu.pb4"),
+            isPublishDepEnabled = true
         )
     }
 }
