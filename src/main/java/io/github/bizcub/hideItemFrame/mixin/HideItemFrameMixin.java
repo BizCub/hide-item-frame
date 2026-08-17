@@ -6,39 +6,43 @@ import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 /*?} else*/ //import net.minecraft.world.entity.decoration.ItemFrame;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(ItemFrameRenderer.class)
 public class HideItemFrameMixin {
 
+    //? >=26.1 {
     //~ if >=1.21.9 'render*' -> 'submit*'
     @ModifyVariable(method = "submit*", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    //~ if >=1.21.2 'ItemFrame' -> 'ItemFrameRenderState'
-    private ItemFrameRenderState hideItemFrameRenderState(ItemFrameRenderState state) {
-        if (Main.visibility) {
-            //? >=26.1 {
-            if (!state.item.isEmpty())
-                state.frameModel.clear();
-
-            //?} >=1.21.2 {
-            /*if (!state.isInvisible)
-                //~ if >=1.21.4 'itemStack' -> 'item'
-                state.isInvisible = !state.item.isEmpty();
-
-            *///?} else {
-            /*state.setInvisible(!state.getItem().isEmpty());*///?}
-        } //? <=1.21.1 {
-        /*else state.setInvisible(false);*///?}
+    private ItemFrameRenderState hideItemFrame(ItemFrameRenderState state) {
+        if (Main.visibility && !state.item.isEmpty()) {
+            state.frameModel.clear();
+        }
         return state;
-    }
+    }//?}
 
-    //? >=26.1 {
+    //? >=1.21.2 {
+    //~ if >=1.21.9 'render*' -> 'submit*'
     @Redirect(method = "submit*", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z", opcode = Opcodes.GETFIELD))
     private boolean isInvisible(ItemFrameRenderState state) {
-        return Main.visibility
+        return Main.visibility /*? >=26.1*/ && Main.raiseItem
+                //~ if >=1.21.4 'itemStack' -> 'item'
                 ? !state.item.isEmpty()
                 : state.isInvisible;
-    }//?}
+    }
+
+    //?} else {
+    /*@Redirect(method = "render*", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/decoration/ItemFrame;isInvisible()Z"))
+    private boolean isInvisible(ItemFrame itemFrame) {
+        return Main.visibility
+                ? itemFrame.isInvisible()
+                : itemFrame.isInvisible() || !itemFrame.getItem().isEmpty();
+    }*///?}
+
+    //? <26.1 {
+    /*//~ if >=1.21.9 'render*' -> 'submit*'
+    @ModifyArg(method = "submit*", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V", ordinal = 1), index = 2)
+    private float raiseItemDepth(float z) {
+        return !Main.raiseItem ? 0.4375F : z;
+    }*///?}
 }

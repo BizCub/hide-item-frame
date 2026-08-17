@@ -16,6 +16,7 @@ public class Main {
     public static final String FILE_NAME = FILE_PATH + "/" + MOD_ID + ".json";
 
     public static boolean visibility = true;
+    public static boolean raiseItem = false;
 
     public static void init() {
         new File(FILE_PATH).mkdirs();

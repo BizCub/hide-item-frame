@@ -23,7 +23,8 @@ multiloader {
     versionRange("1.21.4", to = "1.21.5", loader = "forge")
     versionRange("1.21.3", from = "1.21.3", loader = "forge")
     versionRange("1.21.1", from = "1.20.6", loader = "forge")
-    versionRange("1.20.1", to = "1.20.6")
+    versionRange("1.20.1", to = "1.21.1")
+    versionRange("1.20.1", to = "1.20.4", loader = "forge")
 
     if (isFabric) {
         addDependency(
