@@ -37,6 +37,6 @@ public class ClothConfig implements Config, ConfigData {
 
     @Override
     public void save() {
-        ClothConfig.getInstance().save();
+        AutoConfig.getConfigHolder(ClothConfig.class).save();
     }
 }
