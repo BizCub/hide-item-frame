@@ -25,10 +25,8 @@ public class HideItemFrameMixin {
     //~ if >=1.21.9 'render*' -> 'submit*'
     @Redirect(method = "submit*", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z", opcode = Opcodes.GETFIELD))
     private boolean isInvisible(ItemFrameRenderState state) {
-        return Config.get().isInvisible() /*? >=26.1*/ && Config.get().isItemOffset()
-                //~ if >=1.21.4 'itemStack' -> 'item'
-                ? !state.item.isEmpty()
-                : state.isInvisible;
+        //~ if >=1.21.4 'itemStack' -> 'item'
+        return (state.isInvisible || Config.get().isInvisible() && !state.item.isEmpty()) /*? >=26.1 >> ';'*/ && Config.get().isItemOffset();
     }
 
     //?} else {
