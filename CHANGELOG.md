@@ -1,1 +1,0 @@
-* Fixed a crash when trying to read a configuration file
