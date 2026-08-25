@@ -9,3 +9,12 @@ A mod that hides frames if they contain an item. This solution allows you to imp
 ## Usage
 
 To see all frames again, even those that contain an item, you can press the H button (default). The frame state is saved in the configuration file ```hide_item_frame.json```
+
+## Configuration
+
+You can change the mod's settings in-game via the config screen.
+
+Available options:
+
+- **Frame Visibility** - whether frames containing an item are hidden (can be toggled with the H key).
+- **Offset Item in Frame** - whether the item is pushed forward (offset) inside the frame.
