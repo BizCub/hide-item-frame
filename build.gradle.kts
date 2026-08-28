@@ -9,7 +9,8 @@ multiloader {
             replace("registerKeyBinding", "registerKeyMapping")
         }
         string(scp >= "1.21.11" && !isForge, "auto_config") {
-            replace("AutoConfig", "AutoConfigClient")
+            replace("me.shedaniel.autoconfig.AutoConfig", "me.shedaniel.autoconfig.AutoConfigClient")
+            replace("AutoConfig.getConfigScreen", "AutoConfigClient.getConfigScreen")
         }
         string(scp >= "1.21.6") {
             replace("net.minecraftforge.eventbus.api.SubscribeEvent",
@@ -31,7 +32,7 @@ multiloader {
     versionRange("1.20.1", to = "1.20.1", loader = "forge")
 
     addDependency(
-        dependency = "maven.modrinth:simple-config-lib:${getDep("simple-config-lib")}",
+        dependency = getSimpleConfigLibDep("1.1"),
         isPublishDepEnabled = true
     )
     val isClothConfigAvailable = !(isForge && scp > "1.21.3")
