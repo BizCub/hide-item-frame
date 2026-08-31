@@ -32,7 +32,7 @@ multiloader {
     versionRange("1.20.1", to = "1.20.1", loader = "forge")
 
     addDependency(
-        dependency = getSimpleConfigLibDep("1.1"),
+        dependency = getSimpleConfigLibDep(),
         isPublishDepEnabled = true
     )
     val isClothConfigAvailable = !(isForge && scp > "1.21.3")
