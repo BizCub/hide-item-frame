@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @Mod(Main.MOD_ID)
-@EventBusSubscriber(modid = Main.MOD_ID)
 public class Forge {
 
     public Forge() {
@@ -22,13 +21,23 @@ public class Forge {
                 new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> ConfigHelper.getScreen(screen)));
     }
 
-    @SubscribeEvent
-    public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
-        event.register(Main.TOGGLE_VISIBILITY);
-    }
+    @EventBusSubscriber(modid = Main.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
+    public static class ForgeBus {
 
-    @SubscribeEvent //~ if <=1.20.2 'ClientTickEvent.Post' -> 'ClientTickEvent'
-    public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
-        Main.onClientTick();
+        @SubscribeEvent //~ if <=1.20.2 'ClientTickEvent.Post' -> 'ClientTickEvent'
+        public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
+            Main.onClientTick();
+        }
+
+        //? <=1.21.8 {
+    /^}
+
+    @EventBusSubscriber(modid = Main.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+    public static class ModBus {^///?}
+
+        @SubscribeEvent
+        public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+            event.register(Main.TOGGLE_VISIBILITY);
+        }
     }
 }*///?}
