@@ -33,8 +33,8 @@ public class HideItemFrameMixin {
     /*@Redirect(method = "render*", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/decoration/ItemFrame;isInvisible()Z"))
     private boolean isInvisible(ItemFrame itemFrame) {
         return Config.get().isInvisible()
-                ? itemFrame.isInvisible()
-                : itemFrame.isInvisible() || !itemFrame.getItem().isEmpty();
+                ? itemFrame.isInvisible() || !itemFrame.getItem().isEmpty()
+                : itemFrame.isInvisible();
     }*///?}
 
     //? <26.1 {

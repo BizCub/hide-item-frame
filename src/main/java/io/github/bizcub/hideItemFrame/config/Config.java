@@ -16,7 +16,7 @@ public interface Config {
     }
 
     default boolean isInvisible() {
-        return false;
+        return true;
     }
 
     default boolean isItemOffset() {
