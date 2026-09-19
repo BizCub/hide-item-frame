@@ -21,7 +21,8 @@ multiloader {
     setMREnvironment(mrEnvs.clientOnly)
     setCFEnvironment(cfEnvs.client)
 
-    versionRange("26.1.2", to = "latest")
+    versionRange("26.3", to = "latest")
+    versionRange("26.1.2", to = "26.2")
     versionRange("1.21.10", to = "1.21.11")
     versionRange("1.21.4", to = "1.21.8")
     versionRange("1.21.4", to = "1.21.5", loader = "forge")
