@@ -1,0 +1,10 @@
+{
+    "key.hide_item_frame.toggle_frames_visibility": "Toggle Frames Visibility",
+
+    "text.hide_item_frame.visibility_is_on": "Frames are hidden",
+    "text.hide_item_frame.visibility_is_off": "Frames are shown",
+
+    "text.hide_item_frame.group.general": "Hide Item Frame Settings",
+    "text.hide_item_frame.option.isInvisible": "Frame Invisibility",
+    "text.hide_item_frame.option.isItemOffset": "Offset Item in Frame"
+}
